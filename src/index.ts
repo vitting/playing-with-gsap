@@ -1,37 +1,53 @@
-import { getRandomQuote } from "./quotes";
-import gsap from "gsap";
+import { getBgImage } from "./bg_images";
+import {
+  setCoverImage,
+  setNavbarClass,
+  setTitle,
+  setQuote,
+  showBackgroundsMenu,
+  setActiveImage,
+} from "./set_functions";
 
-const quoteEl: HTMLDivElement | null = document.querySelector(".quote");
-const quoteText = quoteEl?.querySelector(".quote-text");
-const quotePerson = quoteEl?.querySelector(".quote-person");
 const topNavUlEl: HTMLUListElement | null = document.querySelector(
   ".top-nav ul"
 );
-const imagerListEl: HTMLUListElement | null = document.querySelector(
+const imagesListEl: HTMLUListElement | null = document.querySelector(
   ".image-list"
 );
 topNavUlEl?.addEventListener("click", handleNavClick);
-imagerListEl?.addEventListener("click", handleImageClick);
+imagesListEl?.addEventListener("click", handleImageClick);
 
 function handleImageClick(e: Event) {
   if (e.target instanceof HTMLImageElement) {
     const imgEl: HTMLImageElement = e.target;
     const id = imgEl.id;
-    const selected = imgEl.classList.contains("selected");
-    console.log(id, selected);
+    if (!imgEl.classList.contains("selected")) {
+      const bgImageData = getBgImage(id);
+      setCoverImage(bgImageData.name);
+      setNavbarClass(id);
+      setTitle(bgImageData.title);
+      setActiveImage(imgEl);
+      setQuote();
+    }
   }
 }
 
 function handleNavClick(e: Event) {
   const liEl: HTMLLIElement = e.target! as HTMLLIElement;
+  
   const id = liEl.id;
-  console.log(id);
+  switch (id) {
+    case "backgrounds":
+      const menuVisible = showBackgroundsMenu();
+      liEl.dataset.active = menuVisible.toString();
+      
+      break;
+
+    default:
+      break;
+  }
 }
 
-const quote = getRandomQuote();
-if (quoteText && quotePerson) {
-  quoteText.textContent = `"${quote.text}"`;
-  quotePerson.textContent = `- ${quote.person}`;
-}
+setQuote();
 
 export {};
