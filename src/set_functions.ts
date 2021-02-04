@@ -18,12 +18,12 @@ function setCoverImage(name: string) {
   const coverEl: HTMLImageElement | null = document.querySelector(".cover");
   const cover2El: HTMLImageElement = document.createElement("img");
   if (coversEl && coverEl) {
-    cover2El.src = `/images/${name}`;
+    cover2El.src = `images/${name}`;
     cover2El.classList.add("cover2");
     coversEl.append(cover2El);
     const imageSwapTl = gsap.timeline({
       onComplete: () => {
-        coverEl.src = `/images/${name}`;
+        coverEl.src = `images/${name}`;
         coverEl.style.opacity = "1";
         cover2El.remove();
       },
