@@ -1,6 +1,6 @@
 # Playing with GSAP animation libary
 
-[Demo](https://gifted-mcclintock-a80d45.netlify.app/)
+[Demo](https://playing-with-gsap.netlify.app/)
 
 ## Run code
 
